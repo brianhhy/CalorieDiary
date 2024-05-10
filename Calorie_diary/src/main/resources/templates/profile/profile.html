@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/07f7c184df.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap" rel="stylesheet">
+    <title>CalorieDiary</title>
+</head>
+<body>
+    <nav class="navbar">
+        
+        <div class="navbar__logo">
+            <i class="fa-solid fa-c"></i><i class="fa-solid fa-d"></i>
+            <a href="/index/call">CalorieDiary</a>
+        </div>
+        
+        <div class="navbar__menu">
+            <li><a href="/index/call">홈</a></li>
+            <li><a href="/profile/modify">프로필</a></li>
+            <li><a href="/camera">칼로리 카메라</a></li>
+            <li><a href="/diary">칼로리 다이어리</a></li>
+            <li><a href="/board/list">게시판</a></li>
+            <li><a href="/api">음식 데이터</a></li>
+            <li><a href="/member/logout">로그아웃</a></li>
+        </div>
+        
+        <ul class="navbar__icons"></ul>
+
+        <a href="#" class="navbar__toggleBtn">
+            <i class="fa-solid fa-bars"></i>
+        </a> 
+    </nav>
+    
+
+    <!--<div class="container text-center">
+        <div class="row">
+            <div class="col-md-4">ㄴ이ㅠㅣㅁㅇ루ㅠㅣ;ㅏㅁㅇ루ㅠㅣ;ㅏ우류;ㅣㅏㅜㅁㄹ;ㅏㅣㅠ물;ㅏㅣㅠㅜ밀;ㅜㅠㅣㅁ;ㅏ루ㅠㅣ;마ㅜ류</div>
+            <div class="col-md-2"></div><div class="col-md-2"></div>
+            <div class="col-md-4">ㅁ류ㅣㅁㄹ;ㅣㅏㅠㅜㅁㄹ;ㅓㅠ;미류;ㅣ마러ㅠ;ㅣ마뤼ㅠ;뮬;ㅁ어류;ㅔㅓㅇㅁㄹ;ㅠ마ㅠㄹ;</div>
+        </div>
+    </div>!-->
+
+    <div class="container">
+        <div class="item1">
+            <div class="profile">
+                
+                <h3>내 프로필</h3>
+
+                <img src="/images/profile.png" width="400px" height="300px">
+
+                <p>이름 :<span th:text="${session.sessionName}"></span></p>
+                <p>별명 :<span th:text="${session.sessionNickname}"></span></p>
+
+                <p>목표 체중</p>
+                <div class="graph1">
+                    <span th:text="${percentWeight}+'%'"></span>
+                </div>
+
+                <p>목표 bmi</p>
+                <div class="graph2">
+                    <span th:text="${percentBMI}+ '%'"></span>
+                </div>
+
+                <p>목표 골격근량</p>
+                <div class="graph3">
+                    <span th:text="${percentMuscle}+ '%'">50%</span>
+                </div>
+
+                <p>목표 체지방량</p>
+                <div class="graph4">
+                    <span th:text="${percentBodyFat}+ '%'"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="item2">
+          <h4 class="mb-3">프로필 수정</h4>
+          
+            <div class="input-form-backgroud row">
+                <div class="input-form col-md-12 mx-auto">
+                  
+                  <form class="validation-form" novalidate action="/profile/modify" method="post">
+                    
+                    <div class="row">
+                        <input type="hidden" name="id" th:value="${modifyProfile?.id}">
+                        <input type="hidden" name="memberEmail" th:value="${modifyProfile?.memberEmail}">
+                        <input type="hidden" name="memberName" th:value="${modifyProfile?.memberName}">
+                        
+                        <div class="col-md-6 mb-3">
+                          <label for="height">키 (cm)</label>
+                          <input type="text" name="height" class="form-control" id="height" placeholder="(현재 키cm)" aria-label="Disabled input example" th:value="${modifyProfile?.height}" required>
+                          <div class="invalid-feedback">
+                            이름을 입력해주세요.
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="gender">성별</label>
+                            <select class="form-control" name="gender" id="gender" placeholder="(남자 or 여자)" aria-label="Disabled input example"  >
+                                <option th:value="m" th:selected="${modifyProfile?.gender == 'm'}">남자</option>
+                                <option th:value="w" th:selected="${modifyProfile?.gender == 'w'}">여자</option>
+                            </select>
+                            <div class="invalid-feedback">
+                              이름을 입력해주세요.
+                            </div>
+                        </div>
+
+                    </div>
+                    
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="weight">현재 몸무게(kg)</label>
+                        <input type="text" name="currentWeight" class="form-control" id="weight" placeholder="(현재 몸무게)" aria-label="Disabled input example" th:value="${modifyProfile?.currentWeight}" >
+                        <div class="invalid-feedback">
+                          이름을 입력해주세요.
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="goalweight">목표 몸무게(kg)</label>
+                        <input type="text" name="purposeWeight" class="form-control" id="goalWeight" placeholder="목표 몸무게(kg)" th:value="${modifyProfile?.purposeWeight}" required>
+                        <div class="invalid-feedback">
+                          별명을 입력해주세요.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="bmi">현재 bmi</label>
+                          <input type="text" class="form-control" id="bmi" placeholder="(현재 bmi)" aria-label="Disabled input example" th:value="${bmi}" >
+                          <div class="invalid-feedback">
+                            이름을 입력해주세요.
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                          <label for="goalbmi">목표 bmi</label>
+                          <input type="text" name="purposeBMI" class="form-control" id="goalBmi" placeholder="목표 bmi" th:value="${modifyProfile?.purposeBMI}" required>
+                          <div class="invalid-feedback">
+                            별명을 입력해주세요.
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="sMuscle">현재 골격근량</label>
+                          <input type="text" name="muscle" class="form-control" id="sMuscle" placeholder="(현재 골격근량)" aria-label="Disabled input example" th:value="${modifyProfile?.muscle}" >
+                          <div class="invalid-feedback">
+                            이름을 입력해주세요.
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                          <label for="goalsMuscle">목표 골격근량</label>
+                          <input type="text" name="purposeMuscle" class="form-control" id="goalsMuscle" placeholder="목표 골격근량" th:value="${modifyProfile?.purposeMuscle}" required>
+                          <div class="invalid-feedback">
+                            별명을 입력해주세요.
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="fatMass">현재 체지방량</label>
+                          <input type="text" name="bodyFat" class="form-control" id="fatMass" placeholder="(현재 체지방량)" aria-label="Disabled input example" th:value="${modifyProfile?.bodyFat}" >
+                          <div class="invalid-feedback">
+                            이름을 입력해주세요.
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                          <label for="goalFatMass">목표 체지방량</label>
+                          <input type="text" name="purposeBodyFat" class="form-control" id="goalFatMass" placeholder="목표 체지방량" th:value="${modifyProfile?.purposeBodyFat}" >
+                          <div class="invalid-feedback">
+                            별명을 입력해주세요.
+                          </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4"></div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="background-color: #5fcf80;">저장</button>
+
+                  </form>
+                </div>
+              </div>
+        </div>
+    </div>
+
+
+    <script src="js/main.js" defer></script>
+    <script src="js/bootstrap.min.js" defer></script>
+
+    <script th:inline="javascript">
+        var purposeWeight = [[${percentWeight}]];
+        var purposeBmi = [[${percentBMI}]];
+        var purposeMuscle = [[${percentMuscle}]];
+        var purposeBodyFat = [[${percentBodyFat}]];
+
+        var numericValue1 = parseInt(purposeWeight, 10);
+        var numericValue2 = parseInt(purposeBmi, 10);
+        var numericValue3 = parseInt(purposeMuscle, 10);
+        var numericValue4 = parseInt(purposeBodyFat, 10);
+
+
+        document.documentElement.style.setProperty('--width-value1', numericValue1 + '%');
+        document.documentElement.style.setProperty('--width-value2', numericValue2 + '%');
+        document.documentElement.style.setProperty('--width-value3', numericValue3 + '%');
+        document.documentElement.style.setProperty('--width-value4', numericValue4 + '%');
+
+    </script>
+</body>
+
+</html> 

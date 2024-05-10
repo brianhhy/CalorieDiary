@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th=http://www.thymeleaf.org>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie Diary 회원가입</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script
+     src="https://code.jquery.com/jquery-3.7.0.min.js"
+     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+     crossorigin="anonymous">
+  </script>
+
+  <style>
+    body {
+      min-height: 100vh;
+
+      background-color: #328f8a;
+    background-image: linear-gradient(45deg,#328f8a,#5fcf80);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    }
+
+    .input-form {
+      max-width: 680px;
+
+      margin-top: 80px;
+      padding: 32px;
+
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+    .btn-primary btn-lg btn-block {
+    background: #56ab2f;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">회원가입</h4>
+        <form class="validation-form" novalidate action="/member/save" method="post" modelAttribute="memberDTO">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="name">이름</label>
+              <input type="text" class="form-control" id="name" name="memberName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                이름을 입력해주세요.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="nickname">별명</label>
+              <input type="text" class="form-control" id="nickname" name="memberNickname" placeholder="" value="" required onkeyup="nicknameCheck()">
+              <div class="invalid-feedback">
+                별명을 입력해주세요.
+              </div>
+              <span id="nick-check-result"></span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email">이메일 (ID)</label>
+            <input type="email" class="form-control" id="email" name="memberEmail" placeholder="you@example.com" required onkeyup="emailCheck()">
+            <div class="invalid-feedback">
+              이메일을 입력해주세요.
+            </div>
+            <span id="check-result"></span>
+          </div>
+
+          <div class="mb-3">
+            <label for="email">비밀번호</label>
+            <input type="password" class="form-control" id="password" name="memberPassword" placeholder="8자리 이상" required onkeyup="passwordNum()">
+            <div class="invalid-feedback">
+              비밀번호를 입력해주세요.
+            </div>
+            <span id="password_num_result"></span>
+          </div>
+
+          <div class="mb-3">
+            <label for="email">비밀번호 확인</label>
+            <input type="password" class="form-control" id="checkPassword" placeholder="8자리 이상" required onkeyup="passwordCheck()">
+            <div class="invalid-feedback">
+              올바른 비밀번호를 입력해주세요.
+            </div>
+            <span id="password_check_result"></span>
+          </div>
+
+          
+
+          <div class="row">
+            
+           
+          </div>
+          <hr class="mb-4">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="aggrement" required>
+            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+          </div>
+          <div class="mb-4"></div>
+          <button class="btn btn-primary btn-lg btn-block" onclick="test()" type="submit" id="success" style="background-color: #5fcf80;">가입 완료</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  </script>
+
+  <script th:inline="javascript">
+    const emailCheck = () => {
+      const email = document.getElementById("email").value;
+      const checkResult = document.getElementById("check-result");
+      console.log("입력값: ", email);
+      const success = document.getElementById("success");
+      var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      $.ajax({
+        type: "post",
+        url: "/member/email-check",
+        data: {
+             "memberEmail": email
+        },
+        success: function(res) {
+          console.log("요청성공",res);
+          if(!reg_email.test(email)) {
+            success.disabled=true;
+            checkResult.style.color="red";
+            checkResult.innerHTML =" 이메일 형식이 올바르지 않습니다.";
+          }
+          else if(res == "no") {
+              success.disabled=true;
+              console.log("이미 사용중인 이메일")
+              checkResult.style.color="red";
+              checkResult.innerHTML ="이미 사용중인 이메일입니다.";
+          }else{
+            success.disabled=false;
+            checkResult.innerHTML =" ";
+          }
+
+        },
+        error: function(err) {
+          console.log("에러발생", err);
+        }
+      });
+   }
+  </script>
+
+  <script th:inline="javascript">
+      const nicknameCheck = () => {
+      const nickname = document.getElementById("nickname").value;
+      const checkResult = document.getElementById("nick-check-result");
+      const success = document.getElementById("success");
+      console.log("입력값: ", nickname);
+      $.ajax({
+        type: "post",
+        url: "/member/nickname-check",
+        data: {
+             "memberNickname": nickname
+        },
+        success: function(res) {
+          console.log("요청성공",res);
+          if(res == "no"){
+              success.disabled=true;
+              console.log("이미 사용중인 별명입니다.")
+              checkResult.style.color="red";
+              checkResult.innerHTML ="이미 사용중인 별명입니다.";
+          }else{
+            success.disabled=false;
+            checkResult.innerHTML =" ";
+          }
+        },
+        error: function(err) {
+          console.log("에러발생", err);
+        }
+      });
+   }
+</script>
+
+  <script th:inline="javascript">
+      const passwordNum = () =>{
+      const password = document.getElementById('password').value;
+      const password_result=document.getElementById('password_num_result');
+      if(password.length < 8) {
+              success.disabled=true;
+              password_result.innerHTML="8자리 이상의 비밀번호를 사용해주세요.";
+              password_result.style.color="red"
+      }
+      else{
+              success.disabled=false;
+              password_result.innerHTML=" "
+      }
+
+    }
+  </script>
+
+  <script th:inline="javascript">
+      const passwordCheck = () =>{
+      const passwordCheck = document.getElementById('checkPassword').value;
+      const password =document.getElementById('password').value;
+      const password_result=document.getElementById('password_check_result');
+      if(password != passwordCheck) {
+              success.disabled=true;
+              password_result.innerHTML="비밀번호가 일치하지 않습니다.";
+              password_result.style.color="red"
+      }
+      else{
+              success.disabled=false;
+              password_result.innerHTML=" "
+      }
+
+    }
+  </script>
+
+
+</body>
+
+</html>

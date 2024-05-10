@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/07f7c184df.js" crossorigin="anonymous"></script>
+    <title>CalorieDiary</title>
+</head>
+<body>
+    <nav class="navbar">
+        
+        <div class="navbar__logo">
+            <i class="fa-solid fa-c"></i><i class="fa-solid fa-d"></i>
+            <a href="index.html">CalorieDiary</a>
+        </div>
+        
+        <div class="navbar__menu">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="profile.html">프로필</a></li>
+            <li><a href="camera.html">칼로리 카메라</a></li>
+            <li><a href="caresult.html">식단 추천</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="fooddb.html">음식 데이터</a></li>
+            <li><a href="login.html">로그아웃</a></li>
+        </div>
+        
+        <ul class="navbar__icons"></ul>
+
+        <a href="#" class="navbar__toggleBtn">
+            <i class="fa-solid fa-bars"></i>
+        </a> 
+    </nav>
+
+    <div class="container">
+        
+        <div class="item myProfile">
+            
+            <div class="ProfileImage">
+                <img src="images/user.png" alt="image" class="userImage">
+            </div>
+
+            <ul class="infoList" style="list-style-type:none;">
+                <li>이름 : ???</li>
+                <li>성별 : ?</li>
+                <li>목표 체중 : ?? kg</li>
+                <li>목표 bmi : ?? kg/㎡</li>
+                <!-- 아래 두개는 인바디 등록 한 사람만 -->
+                <li>목표 골격근량 : ?? kg</li>
+                <li>목표 체지방량 : ?? kg</li>
+            </ul>
+        </div>
+        
+        <div class="item color2">
+            <div class="recommendfood">
+                <p>오늘의 추천 음식</p>
+                <img class="recommendfood" src="images/tteokbokki.jpg" alt="My Image" width="300" height="300">
+            </div>
+            
+            <p>오늘의 영상</p><iframe class="youtube" width="500" height="255" src="https://www.youtube.com/embed/Os_heh8vPfs?si=Eg8YcpMxhEckDYV_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            
+        </div>
+        <div class="item color3">오늘의 식단</div>
+        <div class="item color4">오늘의 칼로리</div>
+        <div class="item color5">출석 체크</div>
+        <div class="item color6">미니 게시판 가져오기</div>
+        <div class="item color7">오늘 초과한 영양성분</div>
+        <div class="item color8">오늘 부족한 영양성분</div>
+
+        
+    </div>
+
+    <script src="js/main.js" defer></script>
+</body>
+</html> 

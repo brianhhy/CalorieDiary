@@ -1,0 +1,335 @@
+body{
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #328f8a;
+    background-image: linear-gradient(45deg,#328f8a,#5fcf80);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 8px 12px;
+}
+.navbar__logo{
+    padding: 8px 12ox;
+    font-size: 24px;
+    color: white;
+}
+.navbar__logo i{
+    color:white;
+}
+.navbar__menu{
+    display:flex;
+    list-style:none;
+    padding-left:0;
+}
+.navbar__menu li{
+    padding: 8px 12px;
+}
+.navbar__menu li:hover{
+    background-color: #fc8e12;
+    border-radius: 4px;
+}
+
+.navbar__icons{
+    list-style: none;
+    color:white;
+    display:flex;
+    padding-left:0;
+}
+.navbar__icons li{
+    padding: 8px 12px;
+}
+.navbar__toggleBtn{
+    position: absolute;
+    right: 32px;
+    font-size:24px;
+    display:none;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.container{
+    display: grid;
+    padding: 8px 12px;
+    background-color: 5fcf80;
+    grid-template-columns: repeat(5,1fr);
+    grid-auto-rows:minmax(10em,auto);
+    grid-gap: 10px;
+    background-color: #328f8a;
+    background-image: linear-gradient(45deg,#328f8a,#5fcf80);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.item{
+    text-align: center;
+    justify-content:center;
+    align-items: center;
+    font-size:1.2rem;
+    font-weight:bold;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 20px;
+}
+
+/*마이 프로필*/
+
+.userImage{
+    width:400px;
+    height:400px;
+    justify-content: flex-start;
+}
+.myProfile{
+    grid-column: 1/2;
+    grid-row: 1/4;
+    position: relative;
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+}
+
+.graph1{
+    background-color: #ccc;
+    border-radius: 40px;
+}
+.graph1 span{
+    display: block;
+    text-align: right;
+    width: var(--width-value1);
+    padding: 0 10px;
+    background-color: #5fcf80;
+    border-radius: 40px;
+    box-sizing: border-box;
+    color:#fff;
+    animation: stack1 2s 1;
+    margin-bottom: 10px;
+}
+
+.graph2{
+    background-color: #ccc;
+    border-radius: 40px;
+}
+.graph2 span{
+    display: block;
+    text-align: right;
+    width: var(--width-value2);
+    padding: 0 10px;
+    background-color: #5fcf80;
+    border-radius: 40px;
+    box-sizing: border-box;
+    color:#fff;
+    animation: stack2 2s 1;
+    margin-bottom: 10px;
+}
+
+.graph3{
+    background-color: #ccc;
+    border-radius: 40px;
+}
+.graph3 span{
+    display: block;
+    text-align: right;
+    width: var(--width-value3);
+    padding: 0 20px;
+    background-color: #5fcf80;
+    border-radius: 40px;
+    box-sizing: border-box;
+    color:#fff;
+    animation: stack3 2s 1;
+    margin-bottom: 10px;
+}
+
+.graph4{
+    background-color: #ccc;
+    border-radius: 40px;
+}
+.graph4 span{
+    display: block;
+    text-align: right;
+    width: var(--width-value4);
+    padding: 0 20px;
+    background-color: #5fcf80;
+    border-radius: 40px;
+    box-sizing: border-box;
+    color:#fff;
+    animation: stack4 2s 1;
+    margin-bottom: 10px;
+}
+
+
+@keyframes stack1{
+    0%{width:0%; color : rgba(255,255,255,0);}
+    40%{color : rgba(255,255,255,1);}
+    100%{width:var(--width-value1); color : rgba(255,255,255,1);}
+}
+
+@keyframes stack2{
+    0%{width:0%; color : rgba(255,255,255,0);}
+    40%{color : rgba(255,255,255,1);}
+    100%{width:var(--width-value2); color : rgba(255,255,255,1);}
+}
+
+@keyframes stack3{
+    0%{width:0%; color : rgba(255,255,255,0);}
+    40%{color : rgba(255,255,255,1);}
+    100%{width:var(--width-value3); color : rgba(255,255,255,1);}
+}
+
+@keyframes stack4{
+    0%{width:0%; color : rgba(255,255,255,0);}
+    40%{color : rgba(255,255,255,1);}
+    100%{width:var(--width-value4); color : rgba(255,255,255,1);}
+}
+
+
+
+.item.recommendFood{
+    grid-column: 2/4;
+    grid-row: 1/4;
+    padding: 0px;
+    text-align: center;
+    align-items: center;
+    background-color: white;
+}
+
+
+.card{
+    display:flex;
+    flex-direction:column; 
+    width:300px;
+    gap:24px;
+    border:1px solid #ebeaec;
+    box-shadow:0px 2px 4px rgba(0,0,0,0.3);
+    border-radius:16px;
+    padding:36px;
+}
+
+.foodName{
+    font-weight:bold;
+    font-size:16px
+}
+.bottom .calorie{
+    font-size:13px;
+    color:#727174;
+}
+.bottom .mainNut{
+    font-size:12px;
+    color:#b4b4b6;
+}
+
+.wrap{
+    display:flex;
+    justify-content:row;
+    gap:16px;
+}
+.breakfast{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.afternoon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dinner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.item.color3{
+    background-color: white;
+}
+.item.color4{
+    background-color: white;
+}
+.item.color5{
+    align-items: center;
+    background-color: white;
+}
+.item.color6{
+    background-color: white;
+}
+.item.color7{
+    background-color: white;
+}
+.item.color8{
+    background-color: white;
+}
+
+@media screen and (max-width:768px){
+    
+    .navbar{
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 12px;
+    }
+    .navbar__menu{
+        display:none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .navbar__menu li{
+        width: 100%;
+        text-align:center;
+    }
+    .navbar__icons{
+        display:none;
+        justify-content:center;
+        width:100%;
+    }
+    .navbar__toggleBtn{
+        display: block;
+    }
+
+    .navbar__menu.active,
+    .navbar__icons.active{
+        display: flex;
+    }
+
+    .container{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    .userImage{
+        width: 350px;
+        height:350px;
+    }
+    .item{
+        text-align: center;
+        font-size: 1rem;
+    }
+    .youtube{
+        width: 300px;
+        height:250px;
+    }
+}
+
+@media screen and (max-width:735px){
+    
+    body{
+        max-width: 734px;
+    }
+    .navbar{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 12px;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    
+  }

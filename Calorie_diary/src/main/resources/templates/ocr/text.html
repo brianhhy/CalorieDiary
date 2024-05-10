@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Database</title>
+</head>
+<body>
+
+<h2>Food Database</h2>
+
+<p>Member Email: <span th:text="${memberEmail}"></span></p>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>칼로리</th>
+    <th>탄수화물</th>
+    <th>단백질</th>
+    <th>지방</th>
+    <th>당</th>
+    <th>나트륨</th>
+    <th>콜레스테롤</th>
+    <th>포화지방</th>
+    <th>트랜스지방</th>
+    <!-- Add more columns as needed -->
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Loop through the datalist and display each item -->
+  <tr th:each="item : ${nutrientlist}">
+    <td th:text="${item.kcal}">1</td>
+    <td th:text="${item.carbohydrate}">1</td>
+    <td th:text="${item.protein}">1</td>
+    <td th:text="${item.fat}">1</td>
+    <td th:text="${item.sugars}">1</td>
+    <td th:text="${item.salt}">1</td>
+    <td th:text="${item.cholesterol}">1</td>
+    <td th:text="${item.saturated_fatty}">1</td>
+    <td th:text="${item.transfat}">1</td>
+    <!-- Add more columns as needed -->
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

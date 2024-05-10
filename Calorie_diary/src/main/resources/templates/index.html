@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://kit.fontawesome.com/07f7c184df.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/07f7c184df.js" crossorigin="anonymous"></script>
+    <title>CalorieDiary</title>
+</head>
+<body>
+    <nav class="navbar">
+
+        <div class="navbar__logo">
+            <i class="fa-solid fa-c"></i><i class="fa-solid fa-d"></i>
+            <a href="/index/call">CalorieDiary</a>
+        </div>
+
+        <div class="navbar__menu">
+            <li><a href="/index/call">홈</a></li>
+            <li><a href="/profile/modify">프로필</a></li>
+            <li><a href="/camera">칼로리 카메라</a></li>
+            <li><a href="/diary">칼로리 다이어리</a></li>
+            <li><a href="/board/list">게시판</a></li>
+            <li><a href="/api">음식 데이터</a></li>
+            <li><a href="/member/logout">로그아웃</a></li>
+        </div>
+
+        <ul class="navbar__icons"></ul>
+
+        <a href="#" class="navbar__toggleBtn">
+            <i class="fa-solid fa-bars"></i>
+        </a>
+    </nav>
+
+    <div class="container">
+
+        <div class="item myProfile">
+
+            <div class="ProfileImage">
+                <img src="/images/dcs.jpeg" alt="image" class="userImage" width="200px" height="10px" style="border-radius: 20px;">
+            </div>
+
+            <p>이름 : <span th:text="${session.sessionName}"></span></p>
+            <p>별명 : <span th:text="${session.sessionNickname}"></span></p></p>
+
+            <p>목표 체중</p>
+            <div class="graph1">
+                <span th:text="${modifyProfile?.purposeWeight}+ '%'"></span>
+            </div>
+
+            <p>목표 bmi</p>
+            <div class="graph2">
+                <span th:text="${modifyProfile?.purposeBMI}+ '%'"></span>
+            </div>
+
+            <p>목표 골격근량</p>
+            <div class="graph3">
+                <span th:text="${modifyProfile?.purposeMuscle}+ '%'">50%</span>
+            </div>
+
+            <p>목표 체지방량</p>
+            <div class="graph4">
+                <span th:text="${modifyProfile?.purposeBodyFat}+ '%'"></span>
+            </div>
+        </div>
+
+        <div class="item recommendFood">오늘의 추천 음식
+
+            <th:block th:each="commendNutrient : ${commendNutrient}">
+                <div class="breakfast">
+
+
+                        <p th:text="${commendNutrient.meal}"></p>
+                        <div class="wrap">
+                            <div class="card">
+                                <div class="foodName" th:text="${commendNutrient.foodName}">음식 이름</div>
+                                <div class="bottom">
+                                    <div class="mainNut" th:text="탄수화물+${commendNutrient.carbohydrate}+g"></div>
+                                    <div class="mainNut" th:text="단백질+${commendNutrient.protein}"+g></div>
+                                    <div class="mainNut" th:text="지방+${commendNutrient.fat}"+g></div>
+                                    <div class="calorie" th:text="${commendNutrient.kcal}+kcal">???kcal</div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </th:block>
+            <div th:text="${commendInfo}"></div>
+        </div>
+
+        <div class="item color3">
+            <p th:text="${selectDate}"></p>
+                식단
+            <th:block th:each="todayItem : ${todayList}">
+                <p th:text="${todayItem.food_name}"> </p>
+            </th:block>
+        </div>
+
+        <div class="item color4">
+            <p th:text="${selectDate}"></p>
+               칼로리
+            <th:block th:each="todayItem : ${todayList}">
+                <p th:text="${todayItem.kcal}+kcal"> </p>
+            </th:block>
+        </div>
+        <div class="item color5">칼로리 타임머신
+
+            <form action="/index/call/past" method="post">
+                <select name="year">
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
+
+                <select name="month">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+
+                <select name="date">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+                <input class="btn-3d green" type="submit" value="Submit" />
+            </form>
+        </div>
+        <div class="item color6">
+            인기글
+            <th:block th:each="poplarBoard : ${poplarBoard}">
+                <div>
+                    <a style="color: blue;" th:text="${poplarBoard.title}" th:href="@{/board/view(id=${poplarBoard.id})}"> </a>
+                </div>
+            </th:block>
+        </div>
+        <div class="item color7">
+            <p th:text="${selectDate}"></p>
+            초과한 영양성분
+            <th:block th:each="overNutrient : ${overNutrient}">
+                <p th:text="${overNutrient}"> </p>
+            </th:block>
+        </div>
+        <div class="item color8">
+            <p th:text="${selectDate}"></p>
+            부족한 영양성분
+            <th:block th:each="scarceNutrient : ${scarceNutrient}">
+                <p th:text="${scarceNutrient}"> </p>
+            </th:block>
+        </div>
+
+
+    </div>
+
+    <script src="/js/main.js" defer></script>
+    <script src="/js/index.js" defer></script>
+
+    <script th:inline="javascript">
+        var purposeWeight = [[${modifyProfile?.purposeWeight}]];
+        var purposeBmi = [[${modifyProfile?.purposeBMI}]];
+        var purposeMuscle = [[${modifyProfile?.purposeMuscle}]];
+        var purposeBodyFat = [[${modifyProfile?.purposeBodyFat}]];
+
+        var numericValue1 = parseInt(purposeWeight, 10);
+        var numericValue2 = parseInt(purposeBmi, 10);
+        var numericValue3 = parseInt(purposeMuscle, 10);
+        var numericValue4 = parseInt(purposeBodyFat, 10);
+
+
+        document.documentElement.style.setProperty('--width-value1', numericValue1 + '%');
+        document.documentElement.style.setProperty('--width-value2', numericValue2 + '%');
+        document.documentElement.style.setProperty('--width-value3', numericValue3 + '%');
+        document.documentElement.style.setProperty('--width-value4', numericValue4 + '%');
+
+
+    </script>
+</body>
+</html> 

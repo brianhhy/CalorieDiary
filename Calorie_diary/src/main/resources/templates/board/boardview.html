@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="/css/board.css">
+</head>
+<body>
+    <div class="board_wrap">
+        <div class="board_title">
+            <strong style="color:#5fcf80">게시판</strong>
+            <p></p>
+        </div>
+        <div class="board_view_wrap">
+            <div class="board_view">
+                <div th:text="${board.title}" class="title">
+                    제목
+                </div>
+                <div class="info">
+                    <dl>
+                        <dt>번호</dt>
+                        <dd th:text="${board.id}">1</dd>
+                    </dl>
+                    <dl>
+                        <dt>글쓴이</dt>
+                        <dd th:text="${board.memberNickname}">이름</dd>
+                    </dl>
+                    <dl>
+                        <dt>작성일</dt>
+                        <dd th:text="${board.createDate}">2021.1.16</dd>
+                    </dl>
+                    <dl>
+                        <dt>조회</dt>
+                        <dd th:text="${board.view}">0</dd>
+                    </dl>
+                </div>
+                <div th:text="${board.content}" class="cont">
+                </div>
+            </div>
+            <div class="bt_wrap">
+                <a th:href="list" class="on">목록</a>
+                <a th:href="@{/board/modify/{id}(id=${board.id})}">수정</a>
+                <a th:href="@{/board/delete(id=${board.id})}">삭제</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

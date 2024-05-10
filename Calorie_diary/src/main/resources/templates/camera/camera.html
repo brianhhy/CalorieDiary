@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/camera.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/07f7c184df.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/07f7c184df.js" crossorigin="anonymous"></script>
+
+
+    <title>CalorieDiary</title>
+</head>
+<body>
+<nav class="navbar">
+
+    <div class="navbar__logo">
+        <i class="fa-solid fa-c"></i><i class="fa-solid fa-d"></i>
+        <a href="/index/call">CalorieDiary</a>
+    </div>
+
+    <div class="navbar__menu">
+        <li><a href="/index/call">홈</a></li>
+        <li><a href="/profile/modify">프로필</a></li>
+        <li><a href="/camera">칼로리 카메라</a></li>
+        <li><a href="/diary">칼로리 다이어리</a></li>
+        <li><a href="/board/list">게시판</a></li>
+        <li><a href="/api">음식 데이터</a></li>
+        <li><a href="/member/logout">로그아웃</a></li>
+    </div>
+
+    <ul class="navbar__icons"></ul>
+
+    <a href="#" class="navbar__toggleBtn">
+        <i class="fa-solid fa-bars"></i>
+    </a>
+</nav>
+
+<div class="header">
+
+    <div class="headerName">칼로리 카메라</div>
+
+
+
+</div>
+
+
+<!-- Upload  -->
+<form id="file-upload-form" action="/camera/upload" method="post" enctype="multipart/form-data" class="uploader">
+    <input id="file-upload" type="file" name="fileUpload" capture="camera" accept="image/*" />
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="choice" id="food" value="food">
+        <p>음식</p>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="choice" id="nutrient" value="nutrient">
+        <p>영양성분</p>
+    </div>
+
+    <label for="file-upload" id="file-drag" style="height: 500px;">
+        <img id="file-image" src="#" alt="Preview" class="hidden">
+        <div id="start" style="margin-top: 150px;">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <div>Select a file or drag here</div>
+            <div id="notimage" class="hidden">Please select an image</div>
+            <span id="file-upload-btn" class="btn btn-primary">카메라 / 갤러리를 통해 사진 가져오기</span>
+
+        </div>
+        <div id="response" class="hidden">
+            <div id="messages"></div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="submit" style="margin-top: 100px;">제출하기</button>
+            </div>
+        </div>
+    </label>
+</form>
+<div class="table-responsive">
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">순서</th>
+        <th scope="col">음식이름</th>
+        <th scope="col">제조사</th>
+        <th scope="col">제공량</th>
+        <th scope="col">열량(kcal)</th>
+        <th scope="col">탄수화물</th>
+        <th scope="col">단백질</th>
+        <th scope="col">지방</th>
+        <th scope="col">당</th>
+        <th scope="col">나트륨</th>
+        <th scope="col">콜레스테롤</th>
+        <th scope="col">포화지방</th>
+        <th scope="col">트랜스지방</th>
+        <th scope="col">음식 추가</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <form action="/diary/save" method="post">
+        <td>
+            <input th:value="${food.foodName}" type="text" name="food_name">
+        </td>
+        <td></td>
+        <td ></td>
+        <td th:text="${food.kcal}"></td>
+        <td th:text="${food.carbohydrate}"></td>
+        <td th:text="${food.protein}"></td>
+        <td th:text="${food.fat}"></td>
+        <td th:text="${food.sugars}"></td>
+        <td th:text="${food.salt}"></td>
+        <td th:text="${food.cholesterol}"></td>
+        <td th:text="${food.saturated_fatty}"></td>
+        <td th:text="${food.transfat}"></td>
+            <input type="hidden" name="maker_name" value=" ">
+            <input type="hidden" name="serving_size" value=" ">
+            <input type="hidden" name="kcal" th:value=${food.kcal}>
+            <input type="hidden" name="carbohydrate" th:value=${food.carbohydrate}>
+            <input type="hidden" name="protein" th:value=${food.protein}>
+            <input type="hidden" name="fat" th:value=${food.fat}>
+            <input type="hidden" name="sugars" th:value=${food.sugars}>
+            <input type="hidden" name="salt" th:value=${food.salt}>
+            <input type="hidden" name="cholesterol" th:value=${food.cholesterol}>
+            <input type="hidden" name="saturated_fatty" th:value=${food.saturated_fatty}>
+            <input type="hidden" name="transfat" th:value=${food.transfat}>
+            <input type="hidden" name="memberEmail" th:value=${memberEmail}>
+            <td><button type="submit" class="btn btn-success">추가하기</button></td>
+        </form>
+
+    </tr>
+    </tbody>
+</table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="js/main.js" defer></script>
+<script src="js/camera.js" defer></script>
+</body>
+</html>
